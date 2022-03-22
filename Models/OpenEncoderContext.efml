@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="openencoder" namespace="openencoder" p1:name="OpenEncoderModel" p1:Guid="81a66457-4c6b-4e3f-a065-34016f3b800d" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="presets" entity-set="presets" table="presets" schema="public" p1:Guid="ecbd0e8b-4e3b-4e5d-88e4-2e847eeb4001">
+    <id name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="e7564d4e-5f91-4def-b12f-9bdf09882396">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </id>
+    <property name="name" type="String" p1:nullable="True" p1:ValidateMaxLength="128" p1:ValidateRequired="false" p1:Guid="6bc61e7d-5b79-48ce-97d9-ce3fc48737d0">
+      <column name="`name`" not-null="False" length="128" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="description" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="2790b197-df0a-46cf-afa8-4011a37a12e6">
+      <column name="description" not-null="False" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="data" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="2f5d111c-2109-42ff-9574-7eaae601b09d">
+      <column name="`data`" not-null="False" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="active" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="186a2dfa-b8c8-4087-bb64-6b356e966a04">
+      <column name="active" default="false" not-null="False" sql-type="bool" p1:unicode="False" />
+    </property>
+    <property name="output" type="String" p1:nullable="True" p1:ValidateMaxLength="128" p1:ValidateRequired="false" p1:Guid="a71680fb-533b-4e06-bc3f-98f64d2d857e">
+      <column name="`output`" not-null="False" length="128" sql-type="varchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="users" entity-set="users" table="users" schema="public" p1:Guid="2a76942c-ec1a-45a2-9e80-243729a7ebff">
+    <id name="username" type="String" p1:ValidateMaxLength="128" p1:ValidateRequired="true" p1:Guid="23a6f1b4-e291-4c84-82ce-893626e32593">
+      <column name="username" not-null="True" length="128" sql-type="varchar" p1:unicode="True" />
+    </id>
+    <property name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="e7b1eaaa-ee25-4088-80a6-6bf19bc07e73">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </property>
+    <property name="password" type="String" p1:ValidateMaxLength="128" p1:ValidateRequired="true" p1:Guid="cbba523b-72a6-46e5-aaf0-54475302b852">
+      <column name="`password`" not-null="True" length="128" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="role" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="2db68857-73f5-4bf8-956c-d74200370dcf">
+      <column name="`role`" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="force_password_reset" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="98c7d76d-1f63-45f6-a1dd-b4aa8d6c3f96">
+      <column name="force_password_reset" default="false" not-null="False" sql-type="bool" p1:unicode="False" />
+    </property>
+    <property name="active" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="429e0675-d83e-4e5b-8855-7ac5549460bf">
+      <column name="active" default="true" not-null="False" sql-type="bool" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="settings_option" entity-set="settings_option" table="settings_option" schema="public" query-type="True" p1:Guid="4baef9c3-c81e-4bd6-84a2-00a1e52a6b95">
+    <property name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="a8136f00-061b-45cc-ba25-5db43b96e0ad">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </property>
+    <property name="name" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="6a4a7a5d-0612-45ef-913e-fd755e82c07e">
+      <column name="`name`" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="description" type="String" p1:nullable="True" p1:ValidateMaxLength="1024" p1:ValidateRequired="false" p1:Guid="4c8bca91-8f4c-4624-adf5-10b9f8fa789a">
+      <column name="description" not-null="False" length="1024" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="title" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="b8cadf4a-bd14-4535-8672-9f29a640ff0f">
+      <column name="title" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="secure" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="913720d1-89f0-4c3a-808a-88d370fb5fb8">
+      <column name="secure" default="false" not-null="False" sql-type="bool" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="settings" entity-set="settings" table="settings" schema="public" p1:Guid="8fea3d6d-ae32-4b5a-9c15-7b76b09e04e4">
+    <id name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="7b3cf8c5-a352-40fa-8602-3bf9caf40255">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </id>
+    <property name="settings_option_id" type="Int32" p1:ValidateRequired="true" p1:Guid="7a165aea-d2a8-4294-80e7-fdff7e5ba537">
+      <column name="settings_option_id" not-null="True" sql-type="int4" p1:unicode="False" />
+    </property>
+    <property name="value" type="String" p1:nullable="True" p1:ValidateMaxLength="256" p1:ValidateRequired="false" p1:Guid="b944e707-e1b8-48cc-9f1d-3e665bdea879">
+      <column name="`value`" not-null="False" length="256" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="encrypted" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="3a999b2a-a503-4951-91ec-9e729bb2a6d3">
+      <column name="encrypted" default="false" not-null="False" sql-type="bool" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="jobs" entity-set="jobs" table="jobs" schema="public" p1:Guid="959e2b82-4d79-4576-bed8-16611e0caf5b">
+    <id name="guid" type="String" p1:ValidateMaxLength="128" p1:ValidateRequired="true" p1:Guid="605670f6-47d1-43af-a36c-01c2c3fb57d5">
+      <column name="guid" not-null="True" length="128" sql-type="varchar" p1:unicode="True" />
+    </id>
+    <property name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="696e5fd6-888d-4f24-85cd-ace449c18ad5">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </property>
+    <property name="preset" type="String" p1:ValidateMaxLength="128" p1:ValidateRequired="true" p1:Guid="0c9ebb1a-6508-4d25-9785-59195c15da4c">
+      <column name="preset" not-null="True" length="128" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="created_date" type="DateTime" p1:setter-modifier="Private" p1:nullable="True" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="false" p1:Guid="81893624-dbf9-4391-a7b5-5f22f5d2538d">
+      <column name="created_date" default="CURRENT_TIMESTAMP" not-null="False" sql-type="timestamp" p1:unicode="False" />
+    </property>
+    <property name="status" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="439bdf3b-b833-4d4d-b788-85b82d29cafd">
+      <column name="status" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="source" type="String" p1:nullable="True" p1:ValidateMaxLength="128" p1:ValidateRequired="false" p1:Guid="12310da1-0c02-49ef-8336-03608ad57030">
+      <column name="`source`" not-null="False" length="128" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="destination" type="String" p1:nullable="True" p1:ValidateMaxLength="128" p1:ValidateRequired="false" p1:Guid="67bfe863-b4b3-4d78-917c-efc666793034">
+      <column name="destination" not-null="False" length="128" sql-type="varchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="encode" entity-set="encode" table="encode" schema="public" p1:Guid="3e5f905a-c734-4b4d-aff5-a61d311ff3eb">
+    <id name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="73696179-b5a3-4d8a-ba21-91c0fcbba1d6">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </id>
+    <property name="probe" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="3b9adf96-2759-4823-9db5-32de94ece7e0">
+      <column name="probe" not-null="False" sql-type="json" p1:unicode="True" />
+    </property>
+    <property name="progress" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="d627ac35-393f-4f1e-ad5e-d3f792ae49a9">
+      <column name="progress" default="0" not-null="False" sql-type="float8" p1:unicode="False" />
+    </property>
+    <property name="job_id" type="Int32" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="6a20b2d4-9b58-4414-b364-5d3fa73c1114">
+      <column name="job_id" not-null="False" sql-type="int4" p1:unicode="False" />
+    </property>
+    <property name="speed" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="e1638d42-d29d-40d5-9c13-4742fc5a6416">
+      <column name="speed" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="fps" type="Double" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="304a7b4d-b43e-4bfa-81ca-ba97f043fca5">
+      <column name="fps" default="0" not-null="False" sql-type="float8" p1:unicode="False" />
+    </property>
+    <property name="options" type="String" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="6ebbd961-36d8-4e53-b1a8-7f88d48a0c0c">
+      <column name="`options`" not-null="False" sql-type="json" p1:unicode="True" />
+    </property>
+  </class>
+  <associations>
+    <association name="jobs_encode" cardinality="OneToOne" on-delete="Cascade" p1:Guid="9885c430-551c-4dc1-8a45-e2655cdee675">
+      <end1 multiplicity="ZeroOrOne" name="jobs" class="encode" relation-class="jobs" constrained="True" lazy="False" p1:Guid="0d3d87a9-ba23-4679-b7ff-fee9cc03c511">
+        <property name="id" />
+      </end1>
+      <end2 multiplicity="One" name="encode" class="jobs" relation-class="encode" constrained="False" lazy="False" p1:Guid="5458da17-4264-40ec-9743-66d1705ac77a">
+        <property name="job_id" />
+      </end2>
+    </association>
+  </associations>
+</efcore>

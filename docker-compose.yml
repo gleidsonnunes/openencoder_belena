@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  openencoder:
+    image: worker:latest
+    container_name: OpenEncoder_Worker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ["dotnet", "openencoder.dll", "--worker"]

@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "secretStore": "LocalSecretsFile",
+      "type": "identityapp.secretStore",
+      "connectionId": "AzureAD:ClientSecret"
+    },
+    "postgresql1": {
+      "ignored": "true",
+      "suggestion": "true",
+      "type": "postgresql",
+      "connectionId": ""
+    }
+  }
+}

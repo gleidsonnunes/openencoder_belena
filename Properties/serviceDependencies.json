@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "identityapp1": {
+      "type": "identityapp",
+      "connectionId": "AzureAD:ClientSecret"
+    },
+    "appInsights1": {
+      "ignored": "true",
+      "suggestion": "true",
+      "type": "appInsights",
+      "connectionId": ""
+    },
+    "secrets1": {
+      "ignored": "true",
+      "suggestion": "true",
+      "type": "secrets",
+      "connectionId": ""
+    }
+  }
+}
