@@ -8,7 +8,6 @@ namespace openencoder
 {
     public class Program
     {
-        private static readonly OpenEncoderModel model = new();
         public class Options
         {
             [Option('s', "server", Required = false, HelpText = "Start in server mode")]
@@ -37,30 +36,37 @@ namespace openencoder
                            Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
                            IHost host = Host.CreateDefaultBuilder(args).Build();
                            JobManager.Initialize();
-
+                           List<jobs> queued = new();
                            JobManager.AddJob(
                                () =>
                                {
-                                   ConnectionFactory factory = new() { Uri = new("amqps://qkhlcheq:rHLb14DNHY0YQWWyLhkndlmEcWu7e-UJ@jaguar.rmq.cloudamqp.com/qkhlcheq") };
-                                   List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                                   using IConnection connection = factory.CreateConnection();
-                                   using IModel channel = connection.CreateModel();
-                                   List<jobs> queued = new();
-                                   jobs.Except(queued).ToList().ForEach(a =>
+                                   try
                                    {
-                                       queued.Add(a);
-                                       channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: null, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
-                                   });
-                                   EventingBasicConsumer? consumer = new(channel);
-                                   consumer.Received += (model, ea) =>
+                                       using OpenEncoderModel model = new();
+                                       ConnectionFactory factory = new() { Uri = new("amqps://qkhlcheq:rHLb14DNHY0YQWWyLhkndlmEcWu7e-UJ@jaguar.rmq.cloudamqp.com/qkhlcheq") };
+                                       List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
+                                       using IConnection connection = factory.CreateConnection();
+                                       using IModel channel = connection.CreateModel();
+                                       jobs.Where(a => !queued.Select(b => b.guid).Contains(a.guid)).ToList().ForEach(a =>
+                                       {
+                                           queued.Add(a);
+                                           channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: null, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
+                                       });
+                                       EventingBasicConsumer? consumer = new(channel);
+                                       consumer.Received += (model, ea) =>
+                                       {
+                                           byte[]? body = ea.Body.ToArray();
+                                           string? message = Encoding.UTF8.GetString(body);
+                                           Console.WriteLine(message);
+                                       };
+                                       channel.BasicConsume(queue: "downstream",
+                                                            autoAck: true,
+                                                            consumer: consumer);
+                                   }
+                                   catch
                                    {
-                                       byte[]? body = ea.Body.ToArray();
-                                       string? message = Encoding.UTF8.GetString(body);
-                                       Console.WriteLine(message);
-                                   };
-                                   channel.BasicConsume(queue: "downstream",
-                                                        autoAck: false,
-                                                        consumer: consumer);
+
+                                   }
                                },
                                s => s.ToRunNow().AndEvery(5).Seconds()
                            );
