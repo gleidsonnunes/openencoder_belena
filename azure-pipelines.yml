@@ -1,0 +1,49 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@0
+      displayName: 'Build an image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryConnection: DockerHub
+        imageName: gleidsonnunes/openencoderworker
+        includeSourceTags: true
+        includeLatestTag: true
+    - task: Docker@0
+      displayName: 'Push an image'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryConnection: DockerHub
+        action: 'Push an image'
+        imageName: gleidsonnunes/openencoderworker
+        includeSourceTags: true
+        includeLatestTag: true
+    - task: DotNetCoreCLI@2
+      displayName: build
+      inputs:
+        projects: '**/*.sln'
+    - task: ArchiveFiles@2
+      displayName: 'Archive $(Build.BinariesDirectory)'
+    - task: GitHubRelease@1
+      displayName: 'GitHub Release'
+      inputs:
+        gitHubConnection: 'GitHub connection 1'
