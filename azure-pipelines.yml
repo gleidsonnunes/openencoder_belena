@@ -49,6 +49,7 @@ stages:
         publishWebProjects: false
         projects: '**/*.sln'
         arguments: '--configuration Release'
+        zipAfterPublish: true
     - task: GitHubRelease@1
       displayName: 'GitHub Release'
       inputs:
