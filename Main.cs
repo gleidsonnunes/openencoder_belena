@@ -48,7 +48,10 @@ namespace openencoder
                                            jobs.ForEach(a =>
                                            {
                                                IBasicProperties props = channel.CreateBasicProperties();
-                                               props.Headers.Add("x-deduplication-header", true);
+                                               props.Headers = new Dictionary<string, object>
+                                               {
+                                                   { "x-deduplication-header", true }
+                                               };
                                                channel.BasicPublish(exchange: "unico", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
                                            });
                                            EventingBasicConsumer? consumer = new(channel);
