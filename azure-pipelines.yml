@@ -54,6 +54,5 @@ stages:
       displayName: 'GitHub Release'
       inputs:
         gitHubConnection: 'GitHub connection 1'
+        repositoryName: gleidsonnunes/openencoder_belena
         assets: '/home/vsts/work/1/s/bin/Release/net6.0/publish/*.zip'
-        tag: '$(tagName)'
-        tagSource: gitTag
