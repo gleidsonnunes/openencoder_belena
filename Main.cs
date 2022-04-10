@@ -43,7 +43,7 @@ namespace openencoder
                                    try
                                    {
                                        using OpenEncoderModel model = new();
-                                       ConnectionFactory factory = new() { Uri = new("amqps://qkhlcheq:rHLb14DNHY0YQWWyLhkndlmEcWu7e-UJ@jaguar.rmq.cloudamqp.com/qkhlcheq") };
+                                       ConnectionFactory factory = new() { Uri = new("amqp://gleidson:Gleidson@gleidson-nunes.ddns.net/") };
                                        List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
                                        using IConnection connection = factory.CreateConnection();
                                        using IModel channel = connection.CreateModel();
