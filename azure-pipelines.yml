@@ -55,3 +55,5 @@ stages:
       inputs:
         gitHubConnection: 'GitHub connection 1'
         assets: '/home/vsts/work/1/s/bin/Release/net6.0/publish/*.zip'
+        tag: '$(tagName)'
+        tagSource: gitTag
