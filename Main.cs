@@ -36,36 +36,32 @@ namespace openencoder
                            Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
                            IHost host = Host.CreateDefaultBuilder(args).Build();
                            JobManager.Initialize();
-                           List<jobs> queued = new();
                            JobManager.AddJob(
                                () =>
                                {
                                    try
                                    {
                                        using OpenEncoderModel model = new();
-                                       ConnectionFactory factory = new() { Uri = new("amqp://gleidson:Gleidson@gleidson-nunes.ddns.net/") };
                                        List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                                       using IConnection connection = factory.CreateConnection();
-                                       using IModel channel = connection.CreateModel();
-                                       jobs.Where(a => !queued.Select(b => b.guid).Contains(a.guid)).ToList().ForEach(a =>
+                                       using (IModel channel = new ConnectionFactory { Uri = new("amqp://gleidson:Gleidson@gleidson-nunes.ddns.net/") }.CreateConnection().CreateModel())
                                        {
-                                           queued.Add(a);
-                                           channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: null, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
-                                       });
-                                       EventingBasicConsumer? consumer = new(channel);
-                                       consumer.Received += (model, ea) =>
-                                       {
-                                           byte[]? body = ea.Body.ToArray();
-                                           string? message = Encoding.UTF8.GetString(body);
-                                           Console.WriteLine(message);
-                                       };
-                                       channel.BasicConsume(queue: "downstream",
-                                                            autoAck: true,
-                                                            consumer: consumer);
+                                           jobs.ForEach(a =>
+                                           {
+                                               channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: null, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
+                                           });
+                                           EventingBasicConsumer? consumer = new(channel);
+                                           consumer.Received += (model, ea) =>
+                                           {
+                                               byte[]? body = ea.Body.ToArray();
+                                               string? message = Encoding.UTF8.GetString(body);
+                                               Console.WriteLine(message);
+                                           };
+                                           channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
+                                       }
                                    }
-                                   catch
+                                   catch (Exception ex)
                                    {
-
+                                       Console.WriteLine(ex);
                                    }
                                },
                                s => s.ToRunNow().AndEvery(5).Seconds()
