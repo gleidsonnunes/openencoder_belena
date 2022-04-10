@@ -41,8 +41,12 @@ stages:
       displayName: build
       inputs:
         projects: '**/*.sln'
-    - task: ArchiveFiles@2
-      displayName: 'Archive $(Build.BinariesDirectory)'
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet publish'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: '**/*.sln'
     - task: GitHubRelease@1
       displayName: 'GitHub Release'
       inputs:
