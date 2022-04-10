@@ -41,13 +41,16 @@ stages:
       displayName: build
       inputs:
         projects: '**/*.sln'
+        arguments: '--configuration Release'
     - task: DotNetCoreCLI@2
       displayName: 'dotnet publish'
       inputs:
         command: publish
         publishWebProjects: false
         projects: '**/*.sln'
+        arguments: '--configuration Release'
     - task: GitHubRelease@1
       displayName: 'GitHub Release'
       inputs:
         gitHubConnection: 'GitHub connection 1'
+        assets: '/home/vsts/work/1/s/bin/Release/net6.0/publish/*.zip'
