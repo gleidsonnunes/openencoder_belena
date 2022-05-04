@@ -36,15 +36,17 @@ namespace openencoder
                            Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
                            IHost host = Host.CreateDefaultBuilder(args).Build();
                            JobManager.Initialize();
-                           JobManager.AddJob(
-                               () =>
+                           IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+                           using (OpenEncoderModel model = new())
+                           {
+                               using (IModel channel = new ConnectionFactory { Uri = new Uri(config.GetValue<string>("RMQConnectionString")) }.CreateConnection().CreateModel())
                                {
-                                   try
+                                   JobManager.AddJob(
+                                   () =>
                                    {
-                                       using OpenEncoderModel model = new();
-                                       List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                                       using (IModel channel = new ConnectionFactory { Uri = new("amqp://gleidson:Gleidson@gleidsonnunes.loca.lt/") }.CreateConnection().CreateModel())
+                                       try
                                        {
+                                           List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
                                            jobs.ForEach(a =>
                                            {
                                                IBasicProperties props = channel.CreateBasicProperties();
@@ -63,14 +65,14 @@ namespace openencoder
                                            };
                                            channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
                                        }
-                                   }
-                                   catch (Exception ex)
-                                   {
-                                       Console.WriteLine(ex);
-                                   }
-                               },
-                               s => s.ToRunNow().AndEvery(5).Seconds()
-                           );
+                                       catch (Exception ex)
+                                       {
+                                           Console.WriteLine(ex);
+                                       }
+                                   },
+                                   s => s.ToRunNow().AndEvery(5).Seconds());
+                               }
+                           }
                            host.Run();
                        }
                    });
