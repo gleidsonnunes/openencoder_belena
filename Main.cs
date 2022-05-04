@@ -36,41 +36,41 @@ namespace openencoder
                            Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
                            IHost host = Host.CreateDefaultBuilder(args).Build();
                            JobManager.Initialize();
-                           JobManager.AddJob(
+                           IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+                           using (IModel channel = new ConnectionFactory { Uri = new Uri(config.GetValue<string>("RMQConnectionString")) }.CreateConnection().CreateModel())
+                           {
+                               JobManager.AddJob(
                                () =>
                                {
                                    try
                                    {
-                                       using OpenEncoderModel model = new();
+                                       OpenEncoderModel model = new();
                                        List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                                       using (IModel channel = new ConnectionFactory { Uri = new("amqp://gleidson:Gleidson@gleidsonnunes.loca.lt/") }.CreateConnection().CreateModel())
+                                       jobs.ForEach(a =>
                                        {
-                                           jobs.ForEach(a =>
+                                           IBasicProperties props = channel.CreateBasicProperties();
+                                           props.Headers = new Dictionary<string, object>
                                            {
-                                               IBasicProperties props = channel.CreateBasicProperties();
-                                               props.Headers = new Dictionary<string, object>
-                                               {
                                                    { "x-deduplication-header", true }
-                                               };
-                                               channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
-                                           });
-                                           EventingBasicConsumer? consumer = new(channel);
-                                           consumer.Received += (model, ea) =>
-                                           {
-                                               byte[]? body = ea.Body.ToArray();
-                                               string? message = Encoding.UTF8.GetString(body);
-                                               Console.WriteLine(message);
                                            };
-                                           channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
-                                       }
+                                           channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
+                                       });
+                                       EventingBasicConsumer? consumer = new(channel);
+                                       consumer.Received += (model, ea) =>
+                                       {
+                                           byte[]? body = ea.Body.ToArray();
+                                           string? message = Encoding.UTF8.GetString(body);
+                                           Console.WriteLine(message);
+                                       };
+                                       channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
                                    }
                                    catch (Exception ex)
                                    {
                                        Console.WriteLine(ex);
                                    }
                                },
-                               s => s.ToRunNow().AndEvery(5).Seconds()
-                           );
+                               s => s.ToRunNow().AndEvery(5).Seconds());
+                           }
                            host.Run();
                        }
                    });
