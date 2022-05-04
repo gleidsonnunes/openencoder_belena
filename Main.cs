@@ -43,7 +43,7 @@ namespace openencoder
                                    {
                                        using OpenEncoderModel model = new();
                                        List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                                       using (IModel channel = new ConnectionFactory { Uri = new("amqp://gleidson:Gleidson@gleidsonnunes.loca.lt/") }.CreateConnection().CreateModel())
+                                       using (IModel channel = new ConnectionFactory { Uri = new(Environment.GetEnvironmentVariable("RabbitMqConnection") ?? new ConfigurationBuilder().AddEnvironmentVariables().Build().GetValue<string>("RabbitMqConnection")) }.CreateConnection().CreateModel())
                                        {
                                            jobs.ForEach(a =>
                                            {
