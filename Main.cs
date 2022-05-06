@@ -1,8 +1,4 @@
 using CommandLine;
-using FluentScheduler;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
 
 namespace openencoder;
 public class Program
@@ -40,7 +36,7 @@ public class Program
                             services.AddHostedService<QueuedHostedService>();
                             services.AddSingleton<IBackgroundTaskQueue>(_ =>
                             {
-                                if (!int.TryParse(context.Configuration["QueueCapacity"], out var queueCapacity))
+                                if (!int.TryParse(context.Configuration["QueueCapacity"], out int queueCapacity))
                                 {
                                     queueCapacity = 100;
                                 }

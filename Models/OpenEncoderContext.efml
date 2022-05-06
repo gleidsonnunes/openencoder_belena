@@ -41,7 +41,7 @@
     </property>
   </class>
   <class name="jobs" entity-set="jobs" table="jobs" schema="public" p1:Guid="959e2b82-4d79-4576-bed8-16611e0caf5b">
-    <id name="guid" type="Guid" p1:ValidateRequired="true" p1:Guid="605670f6-47d1-43af-a36c-01c2c3fb57d5">
+    <id name="guid" type="String" p1:ValidateRequired="true" p1:Guid="605670f6-47d1-43af-a36c-01c2c3fb57d5">
       <column name="guid" not-null="True" length="128" sql-type="varchar" p1:unicode="True" />
     </id>
     <property name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="696e5fd6-888d-4f24-85cd-ace449c18ad5">
@@ -87,7 +87,7 @@
     </property>
   </class>
   <class name="queue_jobs" entity-set="queue_jobs" table="queue_jobs" schema="public" p1:Guid="595a79eb-7e53-41cc-9ae4-e33730fb9c64">
-    <id name="guid" type="Guid" p1:ValidateRequired="true" p1:Guid="57444c13-e35a-4f6c-a407-1705c08b0d04">
+    <id name="guid" type="String" p1:ValidateRequired="true" p1:Guid="57444c13-e35a-4f6c-a407-1705c08b0d04">
       <column name="guid" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
     </id>
     <property name="preset" type="String" p1:ValidateRequired="true" p1:Guid="bb3ab759-a8e4-4f17-9015-a0deb7a3e919">
@@ -96,8 +96,8 @@
     <property name="source" type="String" p1:ValidateRequired="true" p1:Guid="97796aba-ae30-46f8-a093-b5cd5ba1e0b6">
       <column name="`source`" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
     </property>
-    <property name="destiantion" type="String" p1:ValidateRequired="true" p1:Guid="73c77c6b-0e62-4ec3-89ce-bd6f79cf7a51">
-      <column name="destiantion" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
+    <property name="destination" type="String" p1:ValidateRequired="true" p1:Guid="73c77c6b-0e62-4ec3-89ce-bd6f79cf7a51">
+      <column name="destination" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
     </property>
   </class>
   <class name="settings_option" entity-set="settings_option" table="settings_option" schema="public" p1:Guid="1640d0ce-9cb1-4619-a7d4-48c27728ea2d">
