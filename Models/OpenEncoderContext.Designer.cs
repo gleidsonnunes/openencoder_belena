@@ -43,7 +43,7 @@ namespace openencoder
                 (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
                  !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
             {
-                optionsBuilder.UseNpgsql(GetConnectionString("ConnectionString") ?? GetConnectionString("DbContextSettings:ConnectionString"));
+                optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=gleidson-nunes.ddns.net;Port=5432;Database=openencoder;Pooling=true;");
             }
             CustomizeConfiguration(ref optionsBuilder);
             base.OnConfiguring(optionsBuilder);
