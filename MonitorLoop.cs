@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace openencoder;
 
@@ -34,13 +35,13 @@ public class MonitorLoop
         }
         catch (Exception ex)
         {
-            _logger.LogError(new EventId(),ex,"");
+            _logger.LogError(new EventId(), ex, "");
         }
     }
 
     private async void MonitorAsync(OpenEncoderModel model, IModel channel)
     {
-        JobManager.AddJob(async  () => await _taskQueue.QueueBackgroundWorkItemAsync((token) => BuildWorkItem(token, model, channel)), s => s.ToRunNow().AndEvery(5).Seconds());
+        JobManager.AddJob(async () => await _taskQueue.QueueBackgroundWorkItemAsync((token) => BuildWorkItem(token, model, channel)), s => s.ToRunNow().AndEvery(5).Seconds());
         while (true)
         {
             if (_cancellationToken.IsCancellationRequested)
@@ -63,11 +64,11 @@ public class MonitorLoop
                 if (!model.queue_jobs.Any())
                 {
                     List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                    jobs.ForEach(a =>
-                    {
-                        model.queue_jobs.Add(new queue_jobs { destiantion = a.destination, guid = a.guid, preset = a.preset, source = a.source });
-                        model.SaveChanges();
-                    });
+                    jobs.ExceptBy(model.queue_jobs.Select(a => a.guid), (b) => b.guid).ToList().ForEach(a =>
+                     {
+                         model.queue_jobs.Add(new queue_jobs { destiantion = a.destination, guid = a.guid, preset = a.preset, source = a.source });
+                         model.SaveChanges();
+                     });
                 }
                 model.queue_jobs.ToList().ForEach(a =>
                 {
@@ -77,15 +78,16 @@ public class MonitorLoop
                     { "x-deduplication-header", true }
                 };
                     channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destiantion}\"}}"))));
-                    model.queue_jobs.Remove(a);
-                    model.SaveChanges();
                 });
                 EventingBasicConsumer? consumer = new(channel);
-                consumer.Received += (model, ea) =>
+                consumer.Received += (m, ea) =>
                 {
                     byte[]? body = ea.Body.ToArray();
                     string? message = Encoding.UTF8.GetString(body);
                     Console.WriteLine(message);
+                    string guid = Regex.Matches(message, @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})").First().Value;
+                    model.queue_jobs.Remove(model.queue_jobs.First(a => a.guid == Guid.Parse(guid)));
+                    model.SaveChanges();
                 };
                 channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
             }
