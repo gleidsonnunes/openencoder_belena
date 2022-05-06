@@ -8,21 +8,10 @@
 // the code is regenerated.
 //------------------------------------------------------------------------------
 
-using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace openencoder
@@ -54,8 +43,7 @@ namespace openencoder
                 (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
                  !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
             {
-                optionsBuilder.UsePostgreSql(GetConnectionString("DbContextSettings:ConnectionString"));
-                optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseNpgsql(GetConnectionString("ConnectionString") ?? GetConnectionString("DbContextSettings:ConnectionString"));
             }
             CustomizeConfiguration(ref optionsBuilder);
             base.OnConfiguring(optionsBuilder);
@@ -66,7 +54,7 @@ namespace openencoder
         /// </summary>
         private static string GetConnectionString(string connectionStringName)
         {
-            var configurationBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+            var configurationBuilder = new ConfigurationBuilder().AddEnvironmentVariables().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configurationBuilder.AddEnvironmentVariables();
             var configuration = configurationBuilder.Build();
             return configuration.GetConnectionString(connectionStringName);
