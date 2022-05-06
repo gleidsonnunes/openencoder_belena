@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="OpenEncoderGUI\**" />
+    <Content Remove="OpenEncoderGUI\**" />
+    <EmbeddedResource Remove="OpenEncoderGUI\**" />
+    <None Remove="OpenEncoderGUI\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\css\app.2ce3d26f.css" />
     <Content Remove="wwwroot\css\chunk-vendors.c6d8e0ef.css" />
     <Content Remove="wwwroot\css\machines.1e3eb5a1.css" />
