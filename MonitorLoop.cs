@@ -86,7 +86,7 @@ public class MonitorLoop
                 {
                     { "x-deduplication-header", true }
                 };
-                    channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
+                    channel.BasicPublish(exchange: "my", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
                 });
                 EventingBasicConsumer? consumer = new(channel);
                 consumer.Received += (m, ea) =>
