@@ -1,0 +1,173 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:OpenEncoder.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:id="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="OpenEncoder.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="OpenEncoder"
+        TransparencyLevelHint="Mica"
+        Background="Transparent">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+
+  <Window.Resources>
+    <vm:IconValueConverter x:Key="IconValueConverter"/>
+    <vm:BackgroundValueConverter x:Key="BackgroundValueConverter"/>
+    <vm:BackgroundValueConverter2 x:Key="BackgroundValueConverter2"/>
+    <vm:CommandValueConverter x:Key="CommandValueConverter"/>
+    <vm:VisibilityValueConverter x:Key="VisibilityValueConverter"/>
+  </Window.Resources>
+
+  <Panel Margin="10">
+    <ExperimentalAcrylicBorder IsHitTestVisible="False">
+      <ExperimentalAcrylicBorder.Material>
+        <ExperimentalAcrylicMaterial
+            BackgroundSource="Digger"
+            TintColor="Black"
+            TintOpacity="1"
+            MaterialOpacity="0.65"/>
+      </ExperimentalAcrylicBorder.Material>
+    </ExperimentalAcrylicBorder>
+    <TabControl>
+
+      <TabItem Header="Status" VerticalContentAlignment="Center">
+        <StackPanel Orientation="Vertical">
+          <Label Content="Jobs" Foreground="White" FontSize="25" />
+          <DataGrid IsReadOnly="True" Items="{Binding Status, Mode=OneWay}" VerticalGridLinesBrush="BlueViolet" HorizontalGridLinesBrush="BlueViolet" GridLinesVisibility="All" RowHeight="40" HorizontalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+              <DataGridTextColumn Binding="{Binding nome}" Header="Status" Width="*" />
+              <DataGridTextColumn Binding="{Binding count}" Header="Quantidade" Width="100" />
+              <DataGridTemplateColumn Header="Porcentagem" Width="200">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <ProgressBar ShowProgressText="True"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Value="{Binding porcentagem}"
+                                 Foreground="BlueViolet"
+                                 Background="Black"
+                                 HorizontalAlignment="Center"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+          <Label Content="Health" Foreground="White" FontSize="25" />
+          <DataGrid IsReadOnly="True" Items="{Binding Health, Mode=OneWay}" RowHeight="40" HorizontalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Label Content="{Binding nome}"
+                           Background="{Binding status, Converter={StaticResource BackgroundValueConverter2}}"
+                           HorizontalAlignment="Stretch"
+                           Height="30"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           Foreground="White"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </TabItem>
+
+      <TabItem Header="Jobs" VerticalContentAlignment="Center">
+        <DataGrid IsReadOnly="True" Items="{Binding MyCollection, Mode=OneWay}" VerticalGridLinesBrush="BlueViolet" HorizontalGridLinesBrush="BlueViolet" GridLinesVisibility="All" RowHeight="40" HorizontalScrollBarVisibility="Auto">
+          <DataGrid.Columns>
+
+            <DataGridTemplateColumn Header="Nome" Width="*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Label Content="{Binding source}"
+                         HorizontalAlignment="Stretch"
+                         Height="30"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Foreground="White"/>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Porcentagem" Width="200">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <ProgressBar ShowProgressText="True"
+                               Minimum="0"
+                               Maximum="100"
+                               Value="{Binding progress}"
+                               Foreground="BlueViolet"
+                               Background="Black"
+                               HorizontalAlignment="Center"/>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Status" Width="150">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Label Content="{Binding status}"
+                         HorizontalAlignment="Stretch"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         Background="BlueViolet"
+                         Foreground="White"
+                         Height="30"
+                         Width="100" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Ação" Width="100">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Button CommandParameter="{Binding id}"
+                          Name="BTN"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          Width="30"
+                          Height="30"
+                          Foreground="White"
+                          Content="{Binding status, Converter={StaticResource IconValueConverter}}"
+                          IsVisible="{Binding status, Converter={StaticResource VisibilityValueConverter}}"
+                          Background="{Binding status, Converter={StaticResource BackgroundValueConverter}}"
+                          Command="{Binding status, Converter={StaticResource CommandValueConverter}}" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem Header="Encode" VerticalContentAlignment="Center">
+        <StackPanel Orientation="Vertical">
+          <Label Content="Arquivo:" Foreground="White" FontSize="25" />
+          <TextBox IsReadOnly="True" Name="file" Text="{Binding Path=SelectedItem.strFullPath, ElementName=FileBrowser}"/>
+          <Button ClickMode="Press" HorizontalAlignment="Center" Margin="10" IsDefault="True" Background="BlueViolet" Foreground="White" Click="AddToConvert">Adicionar</Button>
+          <ListBox Items="{Binding Items}"
+                   HorizontalAlignment="Stretch"
+                   SelectedItem="{Binding SelectedItens}"
+                   Name="FileBrowser"
+                   SelectionMode="Single">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding strNodeText}"/>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+  </Panel>
+</Window>

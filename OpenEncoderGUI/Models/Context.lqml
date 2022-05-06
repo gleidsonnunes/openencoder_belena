@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database Name="openencoder" EntityNamespace="Model" ContextNamespace="Model" Class="Context" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" ed:Guid="c5d6655e-1270-4f1a-ab00-a0a6c47226fe" Provider="Devart.Data.PostgreSql.Linq.Provider.PgSqlDataProvider, Devart.Data.PostgreSql.Linq" Extended="true" xmlns="http://schemas.devart.com/linqconnect/mapping">
+  <Connection Mode="ConnectionString" ConnectionString="User Id=postgres;Password=postgres;Host=gleidson-nunes.ddns.net;Database=openencoder;Persist Security Info=True;Initial Schema=public;AllowDateTimeOffset=True;Force IPv4=True" Provider="Devart.Data.PostgreSql" />
+  <Table Name="public.jobs" Member="PublicJobs">
+    <Type Name="PublicJob" ed:Guid="a0ec0914-544a-4c4b-924b-0fd434abbd13">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="SERIAL NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="c7d1a48d-e6cc-4680-ab06-803de00ed8e3" />
+      <Column Name="guid" Member="Guid" Type="System.String" DbType="VARCHAR(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="true" ed:Guid="3099aa77-1d87-487b-9210-820e9d65807b" />
+      <Column Name="preset" Member="Preset" Type="System.String" DbType="VARCHAR(128) NOT NULL" CanBeNull="false" UpdateCheck="Never" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="true" ed:Guid="0be8fd6a-a57a-471a-a069-01c9fb91ca13" />
+      <Column Name="created_date" Member="CreatedDate" Type="System.DateTime" DbType="TIMESTAMP" CanBeNull="true" UpdateCheck="Never" DefaultValue="CURRENT_TIMESTAMP" ed:ValidateRequired="false" ed:Guid="2ca959d8-83bb-4d10-8f4b-504f99b31f94" />
+      <Column Name="status" Member="Status" Type="System.String" DbType="VARCHAR(64)" CanBeNull="true" UpdateCheck="Never" MaxLength="64" Unicode="true" ed:ValidateMaxLength="64" ed:ValidateRequired="false" ed:Guid="0c835b6a-2af6-40b9-a3e2-a3137c0fa91a" />
+      <Column Name="&quot;source&quot;" Member="Source" Type="System.String" DbType="VARCHAR(128)" CanBeNull="true" UpdateCheck="Never" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="false" ed:Guid="a2b7ede1-4b01-465d-827c-7e615857745e" />
+      <Column Name="destination" Member="Destination" Type="System.String" DbType="VARCHAR(128)" CanBeNull="true" UpdateCheck="Never" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="false" ed:Guid="ad6d0e88-6ca0-450f-8f0c-ef905b3c75ce" />
+      <Association Name="PublicJob_PublicEncode" ed:AssociationGuid="c89232da-9fd5-4efb-8c22-54ed152c1e37" Member="PublicEncode" ed:Guid="3d5aed03-ce16-4ee7-b957-0b16e9df9a0c" ThisKey="Id" OtherKey="JobId" Type="PublicEncode" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="public.encode" Member="PublicEncodes">
+    <Type Name="PublicEncode" ed:Guid="990c9735-ce82-4193-a2dc-2b8367034741">
+      <Column Name="id" Member="Id" Type="System.Int32" AutoSync="OnInsert" DbType="SERIAL NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="134427d8-f34a-4d96-b07b-874dc79a713d" />
+      <Column Name="probe" Member="Probe" Type="System.String" DbType="JSON" CanBeNull="true" UpdateCheck="Never" Unicode="true" ed:ValidateRequired="false" ed:Guid="3ffe9296-91bb-41a9-aaf7-b2df0160e93f" />
+      <Column Name="progress" Member="Progress" Type="System.Double" DbType="FLOAT8" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="32611e45-0fef-4577-a9cb-67381ed649ce" />
+      <Column Name="job_id" Member="JobId" Type="System.Int32" DbType="INT4" CanBeNull="true" UpdateCheck="Never" ed:ValidateRequired="false" ed:Guid="75bcca7c-fb30-482f-9bb6-7689c9d5e2ba" />
+      <Column Name="speed" Member="Speed" Type="System.String" DbType="VARCHAR(64)" CanBeNull="true" UpdateCheck="Never" MaxLength="64" Unicode="true" ed:ValidateMaxLength="64" ed:ValidateRequired="false" ed:Guid="ffe87a12-bbcf-4a0b-b490-07bf6fe181d7" />
+      <Column Name="fps" Member="Fps" Type="System.Double" DbType="FLOAT8" CanBeNull="true" UpdateCheck="Never" DefaultValue="0" ed:ValidateRequired="false" ed:Guid="1d1eee16-4777-4114-93d2-b6e2159a9a2b" />
+      <Column Name="&quot;options&quot;" Member="Option" Type="System.String" DbType="JSON" CanBeNull="true" UpdateCheck="Never" Unicode="true" ed:ValidateRequired="false" ed:Guid="3809d77f-8a1e-498b-ae45-809c50e65d61" />
+      <Association Name="PublicJob_PublicEncode" ed:AssociationGuid="c89232da-9fd5-4efb-8c22-54ed152c1e37" Member="PublicJob" ed:Guid="ac95fe09-d8a7-426f-a8fa-7ff32824aa55" ThisKey="JobId" OtherKey="Id" Type="PublicJob" DeleteRule="CASCADE" IsForeignKey="true" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="public.users" Member="PublicUsers">
+    <Type Name="PublicUser" ed:Guid="2eaaf755-11ad-444f-a587-b3abecc10683">
+      <Column Name="id" Member="Id" Type="System.Int32" DbType="SERIAL NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="294be746-3f4d-4f34-9d80-44e0d06d52b6" />
+      <Column Name="username" Member="Username" Type="System.String" DbType="VARCHAR(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" UpdateCheck="Always" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="true" ed:Guid="456f650a-6735-48db-9ee6-8ee231352d42" />
+      <Column Name="&quot;password&quot;" Member="Password" Type="System.String" DbType="VARCHAR(128) NOT NULL" CanBeNull="false" UpdateCheck="Never" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="true" ed:Guid="8332ba2e-e7f5-48cc-a929-7ce0e42c3c91" />
+      <Column Name="&quot;role&quot;" Member="Role" Type="System.String" DbType="VARCHAR(64)" CanBeNull="true" UpdateCheck="Never" MaxLength="64" Unicode="true" ed:ValidateMaxLength="64" ed:ValidateRequired="false" ed:Guid="ece87cc3-e9ee-42bb-b0e8-ae98828fb1c1" />
+      <Column Name="force_password_reset" Member="ForcePasswordReset" Type="System.Boolean" DbType="BOOL" CanBeNull="true" UpdateCheck="Never" DefaultValue="false" ed:ValidateRequired="false" ed:Guid="0e309ec2-a24e-4cf3-898e-ed3a0190a96e" />
+      <Column Name="active" Member="Active" Type="System.Boolean" DbType="BOOL" CanBeNull="true" UpdateCheck="Never" DefaultValue="true" ed:ValidateRequired="false" ed:Guid="ecfa1ca6-33cb-4aec-8ff3-9dde3e02fe17" />
+    </Type>
+  </Table>
+  <Table Name="public.settings_option" Member="PublicSettingsOptions">
+    <Type Name="PublicSettingsOption" ed:Guid="e16f17dc-3aed-44ee-b69e-8dd85d416c24">
+      <Column Name="id" Member="Id" Type="System.Int32" AutoSync="OnInsert" DbType="SERIAL NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="d5313c1d-f23b-4891-b2e0-360632254ffb" />
+      <Column Name="&quot;name&quot;" Member="Name" Type="System.String" DbType="VARCHAR(64)" CanBeNull="true" UpdateCheck="Never" MaxLength="64" Unicode="true" ed:ValidateMaxLength="64" ed:ValidateRequired="false" ed:Guid="6fa894b4-0486-4e58-b348-dcfaeeb4ccc4" />
+      <Column Name="description" Member="Description" Type="System.String" DbType="VARCHAR(1024)" CanBeNull="true" UpdateCheck="Never" MaxLength="1024" Unicode="true" ed:ValidateMaxLength="1024" ed:ValidateRequired="false" ed:Guid="8d7de30e-eb31-4d47-894f-ebe01b531b89" />
+      <Column Name="title" Member="Title" Type="System.String" DbType="VARCHAR(64)" CanBeNull="true" UpdateCheck="Never" MaxLength="64" Unicode="true" ed:ValidateMaxLength="64" ed:ValidateRequired="false" ed:Guid="d8462acb-3e7b-405d-8281-e387addd56c5" />
+      <Association Name="PublicSettingsOption_PublicSetting" ed:AssociationGuid="14fe016f-1e6e-4b4f-b345-8d64c09a7ea8" Member="PublicSettings_SettingsOptionId" ed:Guid="e2a1e92d-bf31-4048-a840-5c2253736dd4" ThisKey="Id" OtherKey="SettingsOptionId" Type="PublicSetting" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="public.settings" Member="PublicSettings">
+    <Type Name="PublicSetting" ed:Guid="53a7d9b5-8968-4096-b5c1-bac2243c1a17">
+      <Column Name="settings_option_id" Member="SettingsOptionId" Type="System.Int32" DbType="INT4 NOT NULL" CanBeNull="false" UpdateCheck="Never" ed:ValidateRequired="true" ed:Guid="00511783-e8cf-4d44-9889-37c345d2e8bc" />
+      <Column Name="&quot;value&quot;" Member="Value" Type="System.String" DbType="VARCHAR(256)" CanBeNull="true" UpdateCheck="Never" MaxLength="256" Unicode="true" ed:ValidateMaxLength="256" ed:ValidateRequired="false" ed:Guid="c918104e-20b2-41b3-ae7c-f9b9df4e600e" />
+      <Column Name="id" Member="Id" Type="System.Int32" AutoSync="OnInsert" DbType="SERIAL NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="fb30276f-269d-4bfd-87cb-34f1c393cc93" />
+      <Association Name="PublicSettingsOption_PublicSetting" ed:AssociationGuid="14fe016f-1e6e-4b4f-b345-8d64c09a7ea8" Member="PublicSettingsOption_SettingsOptionId" ed:Guid="b93b4193-4ef0-4d20-a414-e527b6f3f33e" ThisKey="SettingsOptionId" OtherKey="Id" Type="PublicSettingsOption" DeleteRule="CASCADE" DeleteOnNull="true" IsForeignKey="true" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="public.presets" Member="PublicPresets">
+    <Type Name="PublicPreset" ed:Guid="d3ebd44c-8af0-4bd9-b66e-86414bbb33fd">
+      <Column Name="id" Member="Id" Type="System.Int32" AutoSync="OnInsert" DbType="SERIAL NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Always" ed:ValidateRequired="true" ed:Guid="71fe23e2-c407-4964-b65b-1c6d57292a71" />
+      <Column Name="&quot;name&quot;" Member="Name" Type="System.String" DbType="VARCHAR(128)" CanBeNull="true" UpdateCheck="Never" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="false" ed:Guid="7ace5be2-01ac-49ed-9f67-f3d44f79bd44" />
+      <Column Name="description" Member="Description" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" Unicode="true" ed:ValidateRequired="false" ed:Guid="e561b9d5-d07e-468d-9620-525583e05325" />
+      <Column Name="&quot;data&quot;" Member="Data" Type="System.String" DbType="VARCHAR" CanBeNull="true" UpdateCheck="Never" Unicode="true" ed:ValidateRequired="false" ed:Guid="74adb035-5be8-47b2-a5e8-52eea14d6b78" />
+      <Column Name="active" Member="Active" Type="System.Boolean" DbType="BOOL" CanBeNull="true" UpdateCheck="Never" DefaultValue="false" ed:ValidateRequired="false" ed:Guid="e5319b0e-efe7-4483-b442-880f76f8bd4b" />
+      <Column Name="&quot;output&quot;" Member="Output" Type="System.String" DbType="VARCHAR(128)" CanBeNull="true" UpdateCheck="Never" MaxLength="128" Unicode="true" ed:ValidateMaxLength="128" ed:ValidateRequired="false" ed:Guid="207eaa20-7869-48f1-887d-ef1ab2407340" />
+    </Type>
+  </Table>
+</Database>
