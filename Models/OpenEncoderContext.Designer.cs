@@ -43,7 +43,7 @@ namespace openencoder
                 (!optionsBuilder.Options.Extensions.OfType<RelationalOptionsExtension>().Any(ext => !string.IsNullOrEmpty(ext.ConnectionString) || ext.Connection != null) &&
                  !optionsBuilder.Options.Extensions.Any(ext => !(ext is RelationalOptionsExtension) && !(ext is CoreOptionsExtension))))
             {
-                optionsBuilder.UseNpgsql(GetConnectionString("ConnectionString") ?? GetConnectionString("DbContextSettings:ConnectionString"));
+                optionsBuilder.UseNpgsql(GetConnectionString("DbContextSettings:ConnectionString") ?? GetConnectionString("ConnectionString"));
             }
             CustomizeConfiguration(ref optionsBuilder);
             base.OnConfiguring(optionsBuilder);
@@ -54,10 +54,7 @@ namespace openencoder
         /// </summary>
         private static string GetConnectionString(string connectionStringName)
         {
-            var configurationBuilder = new ConfigurationBuilder().AddEnvironmentVariables().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            configurationBuilder.AddEnvironmentVariables();
-            var configuration = configurationBuilder.Build();
-            return configuration.GetConnectionString(connectionStringName);
+            return new ConfigurationBuilder().AddEnvironmentVariables().Build().GetValue<string>(connectionStringName);
         }
 
         /// <summary>
