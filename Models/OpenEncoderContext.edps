@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EntityDeveloper Version="6.12.1419.0">
   <ModelSettings xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" AppConnectionStringName="DbContextSettings:ConnectionString" ConnectionStringInAppConfig="True" RegenareteConnectionStringInAppConfig="False" TargetFramework="Net60" DetectTPTInheritance="True" AddComplexTypesToDiagram="True" EntityFrameworkCoreVersion="Version6" ShadowForeignKeyProperties="True" UseLazyLoadingProxies="True" StoreGeneratedAsReadOnlyProperty="True" StoreGeneratedAsContructorParameter="True" DetectFunctionBasedColumnDefault="True">
-    <Connection ConnectionString="User Id=postgres;Password=postgres;Host=10.1.1.16;Database=openencoder;Persist Security Info=True;Initial Schema=public" Provider="Devart.Data.PostgreSql" />
+    <Connection ConnectionString="User Id=postgres;Password=postgres;Host=gleidson-nunes.ddns.net;Database=openencoder;Persist Security Info=True;Initial Schema=public" Provider="Devart.Data.PostgreSql" />
     <Generation>
       <GeneratedFiles>
         <File Name="OpenEncoderContext.Designer.cs" DestinationFolder="D:\openencoder" />

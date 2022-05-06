@@ -33,42 +33,23 @@ public class Program
                    {
                        Console.WriteLine("Starting worker...");
                        Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
-                       IHost host = Host.CreateDefaultBuilder(args).Build();
-                       JobManager.Initialize();
-                       IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
-                       OpenEncoderModel model = new();
-                       IModel channel = new ConnectionFactory { Uri = new Uri(config.GetValue<string>("RMQConnectionString")) }.CreateConnection().CreateModel();
-                       JobManager.AddJob(
-                       () =>
-                       {
-                           try
-                           {
+                       IHost host = Host.CreateDefaultBuilder(args)
+                        .ConfigureServices((context, services) =>
+                        {
+                            services.AddSingleton<MonitorLoop>();
+                            services.AddHostedService<QueuedHostedService>();
+                            services.AddSingleton<IBackgroundTaskQueue>(_ =>
+                            {
+                                if (!int.TryParse(context.Configuration["QueueCapacity"], out var queueCapacity))
+                                {
+                                    queueCapacity = 100;
+                                }
 
-                               List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                               jobs.ForEach(a =>
-                               {
-                                   IBasicProperties props = channel.CreateBasicProperties();
-                                   props.Headers = new Dictionary<string, object>
-                                   {
-                                                   { "x-deduplication-header", true }
-                                   };
-                                   channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
-                               });
-                               EventingBasicConsumer? consumer = new(channel);
-                               consumer.Received += (model, ea) =>
-                               {
-                                   byte[]? body = ea.Body.ToArray();
-                                   string? message = Encoding.UTF8.GetString(body);
-                                   Console.WriteLine(message);
-                               };
-                               channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
-                           }
-                           catch (Exception ex)
-                           {
-                               Console.WriteLine(ex);
-                           }
-                       },
-                       s => s.ToRunNow().AndEvery(5).Seconds());
+                                return new DefaultBackgroundTaskQueue(queueCapacity);
+                            });
+                        }).Build();
+                       MonitorLoop monitorLoop = host.Services.GetRequiredService<MonitorLoop>()!;
+                       monitorLoop.StartMonitorLoop();
                        host.Run();
                    }
                });

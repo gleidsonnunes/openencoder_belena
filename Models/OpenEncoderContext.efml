@@ -40,37 +40,6 @@
       <column name="active" default="true" not-null="False" sql-type="bool" p1:unicode="False" />
     </property>
   </class>
-  <class name="settings_option" entity-set="settings_option" table="settings_option" schema="public" query-type="True" p1:Guid="4baef9c3-c81e-4bd6-84a2-00a1e52a6b95">
-    <property name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="a8136f00-061b-45cc-ba25-5db43b96e0ad">
-      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
-    </property>
-    <property name="name" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="6a4a7a5d-0612-45ef-913e-fd755e82c07e">
-      <column name="`name`" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
-    </property>
-    <property name="description" type="String" p1:nullable="True" p1:ValidateMaxLength="1024" p1:ValidateRequired="false" p1:Guid="4c8bca91-8f4c-4624-adf5-10b9f8fa789a">
-      <column name="description" not-null="False" length="1024" sql-type="varchar" p1:unicode="True" />
-    </property>
-    <property name="title" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="b8cadf4a-bd14-4535-8672-9f29a640ff0f">
-      <column name="title" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
-    </property>
-    <property name="secure" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="913720d1-89f0-4c3a-808a-88d370fb5fb8">
-      <column name="secure" default="false" not-null="False" sql-type="bool" p1:unicode="False" />
-    </property>
-  </class>
-  <class name="settings" entity-set="settings" table="settings" schema="public" p1:Guid="8fea3d6d-ae32-4b5a-9c15-7b76b09e04e4">
-    <id name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="7b3cf8c5-a352-40fa-8602-3bf9caf40255">
-      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
-    </id>
-    <property name="settings_option_id" type="Int32" p1:ValidateRequired="true" p1:Guid="7a165aea-d2a8-4294-80e7-fdff7e5ba537">
-      <column name="settings_option_id" not-null="True" sql-type="int4" p1:unicode="False" />
-    </property>
-    <property name="value" type="String" p1:nullable="True" p1:ValidateMaxLength="256" p1:ValidateRequired="false" p1:Guid="b944e707-e1b8-48cc-9f1d-3e665bdea879">
-      <column name="`value`" not-null="False" length="256" sql-type="varchar" p1:unicode="True" />
-    </property>
-    <property name="encrypted" type="Boolean" p1:nullable="True" p1:ValidateRequired="false" p1:Guid="3a999b2a-a503-4951-91ec-9e729bb2a6d3">
-      <column name="encrypted" default="false" not-null="False" sql-type="bool" p1:unicode="False" />
-    </property>
-  </class>
   <class name="jobs" entity-set="jobs" table="jobs" schema="public" p1:Guid="959e2b82-4d79-4576-bed8-16611e0caf5b">
     <id name="guid" type="Guid" p1:ValidateRequired="true" p1:Guid="605670f6-47d1-43af-a36c-01c2c3fb57d5">
       <column name="guid" not-null="True" length="128" sql-type="varchar" p1:unicode="True" />
@@ -117,18 +86,43 @@
       <column name="`options`" not-null="False" sql-type="json" p1:unicode="True" />
     </property>
   </class>
-  <class name="queue_job" entity-set="queue_job" p1:Guid="9d824a8a-15f6-4765-bf6c-6e2c55cc8b1e">
-    <id name="guid" type="Guid" p1:ValidateRequired="true" p1:Guid="5beb113b-b2f8-4f74-a1a6-0c957999394a">
-      <column name="" />
+  <class name="queue_jobs" entity-set="queue_jobs" table="queue_jobs" schema="public" p1:Guid="595a79eb-7e53-41cc-9ae4-e33730fb9c64">
+    <id name="guid" type="Guid" p1:ValidateRequired="true" p1:Guid="57444c13-e35a-4f6c-a407-1705c08b0d04">
+      <column name="guid" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
     </id>
-    <property name="preset" type="String" p1:ValidateRequired="true" p1:Guid="f6c725d8-94b7-4615-a20e-a338bcffb3f3">
-      <column name="" />
+    <property name="preset" type="String" p1:ValidateRequired="true" p1:Guid="bb3ab759-a8e4-4f17-9015-a0deb7a3e919">
+      <column name="preset" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
     </property>
-    <property name="source" type="String" p1:ValidateRequired="true" p1:Guid="26ef763e-984d-4bcd-811e-986023ce6a45">
-      <column name="" />
+    <property name="source" type="String" p1:ValidateRequired="true" p1:Guid="97796aba-ae30-46f8-a093-b5cd5ba1e0b6">
+      <column name="`source`" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
     </property>
-    <property name="destination" type="String" p1:ValidateRequired="true" p1:Guid="239c6ffa-7320-4344-a439-cc8186551624">
-      <column name="" />
+    <property name="destiantion" type="String" p1:ValidateRequired="true" p1:Guid="73c77c6b-0e62-4ec3-89ce-bd6f79cf7a51">
+      <column name="destiantion" not-null="True" sql-type="varchar(255)[]" p1:unicode="False" />
+    </property>
+  </class>
+  <class name="settings_option" entity-set="settings_option" table="settings_option" schema="public" p1:Guid="1640d0ce-9cb1-4619-a7d4-48c27728ea2d">
+    <id name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="fbd097ad-bdc1-4e80-8af8-b2a7d3ea8264">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </id>
+    <property name="name" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="061a2ec5-4567-466d-96d3-a2de63f7d9e7">
+      <column name="`name`" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="description" type="String" p1:nullable="True" p1:ValidateMaxLength="1024" p1:ValidateRequired="false" p1:Guid="7c829fce-81e4-4c2b-b2d7-e5e361b13023">
+      <column name="description" not-null="False" length="1024" sql-type="varchar" p1:unicode="True" />
+    </property>
+    <property name="title" type="String" p1:nullable="True" p1:ValidateMaxLength="64" p1:ValidateRequired="false" p1:Guid="5f5ea486-ca40-4e34-bb68-f46d80cfec09">
+      <column name="title" not-null="False" length="64" sql-type="varchar" p1:unicode="True" />
+    </property>
+  </class>
+  <class name="settings" entity-set="settings" table="settings" schema="public" p1:Guid="f516bc1e-7daf-4a6b-87ee-9b4f0aea09a6">
+    <id name="id" type="Int32" p1:setter-modifier="Private" value-generated="OnAdd" constructor-parameter="True" p1:ValidateRequired="true" p1:Guid="7b30f096-2a8b-46b1-a61e-3b46a589eb38">
+      <column name="id" not-null="True" sql-type="serial" p1:unicode="False" />
+    </id>
+    <property name="settings_option_id" type="Int32" shadow="True" p1:ValidateRequired="true" p1:Guid="34c8dfe0-da41-4fe8-be2a-b597dd15c742">
+      <column name="settings_option_id" not-null="True" sql-type="int4" p1:unicode="False" />
+    </property>
+    <property name="value" type="String" p1:nullable="True" p1:ValidateMaxLength="256" p1:ValidateRequired="false" p1:Guid="3364e48d-df35-4e24-b7ee-e0b5626cdbd1">
+      <column name="`value`" not-null="False" length="256" sql-type="varchar" p1:unicode="True" />
     </property>
   </class>
   <associations>
@@ -138,6 +132,22 @@
       </end1>
       <end2 multiplicity="One" name="encode" class="jobs" relation-class="encode" constrained="False" lazy="False" p1:Guid="5458da17-4264-40ec-9743-66d1705ac77a">
         <property name="job_id" />
+      </end2>
+    </association>
+    <association name="queue_jobs_jobs" cardinality="OneToOne" p1:Guid="8213e9c5-d3ed-435f-a90e-8f89e23584e4">
+      <end1 multiplicity="ZeroOrOne" name="queue_jobs" class="jobs" relation-class="queue_jobs" constrained="True" lazy="False" p1:Guid="a2a3e65f-276f-4615-9e13-1c7a30cdd729">
+        <property name="guid" />
+      </end1>
+      <end2 multiplicity="One" name="jobs" class="queue_jobs" relation-class="jobs" constrained="False" lazy="False" p1:Guid="7df98ba2-891a-4078-8dcd-3cf469a7e07b">
+        <property name="guid" />
+      </end2>
+    </association>
+    <association name="settings_option_settings" cardinality="OneToMany" p1:Guid="b82e67f8-d775-4dfe-93ea-b6120d0d7988">
+      <end1 multiplicity="One" name="settings_option" class="settings" relation-class="settings_option" constrained="True" lazy="False" p1:Guid="1692e11c-f810-4a72-9f68-0d459fef36c8">
+        <property name="id" />
+      </end1>
+      <end2 multiplicity="Many" name="settings" class="settings_option" relation-class="settings" lazy="False" p1:Guid="13a9fbc9-4efb-4ef5-b36f-201aa4dd4eaf">
+        <property name="settings_option_id" />
       </end2>
     </association>
   </associations>
