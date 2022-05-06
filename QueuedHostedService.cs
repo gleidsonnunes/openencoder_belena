@@ -7,8 +7,10 @@ public sealed class QueuedHostedService : BackgroundService
 
     public QueuedHostedService(
         IBackgroundTaskQueue taskQueue,
-        ILogger<QueuedHostedService> logger) =>
+        ILogger<QueuedHostedService> logger)
+    {
         (_taskQueue, _logger) = (taskQueue, logger);
+    }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {

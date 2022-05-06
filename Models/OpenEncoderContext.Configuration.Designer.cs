@@ -143,7 +143,7 @@ namespace openencoder
             builder.Property(x => x.guid).HasColumnName(@"guid").HasColumnType(@"varchar(255)[]").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.preset).HasColumnName(@"preset").HasColumnType(@"varchar(255)[]").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.source).HasColumnName(@"source").HasColumnType(@"varchar(255)[]").IsRequired().ValueGeneratedNever();
-            builder.Property(x => x.destiantion).HasColumnName(@"destiantion").HasColumnType(@"varchar(255)[]").IsRequired().ValueGeneratedNever();
+            builder.Property(x => x.destination).HasColumnName(@"destination").HasColumnType(@"varchar(255)[]").IsRequired().ValueGeneratedNever();
             builder.HasKey(@"guid");
 
             CustomizeConfiguration(builder);
@@ -197,9 +197,9 @@ namespace openencoder
         public void Configure(EntityTypeBuilder<settings> builder)
         {
             builder.ToTable(@"settings", @"public");
+            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property<int>(@"settings_option_id").HasColumnName(@"settings_option_id").HasColumnType(@"int4").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.value).HasColumnName(@"value").HasColumnType(@"varchar").ValueGeneratedNever().HasMaxLength(256);
-            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.HasKey(@"id");
             builder.HasOne(x => x.settings_option).WithMany(op => op.settings).HasForeignKey(@"settings_option_id").IsRequired(true);
 
