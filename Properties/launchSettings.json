@@ -3,7 +3,7 @@
   "profiles": {
     "openencoder": {
       "commandName": "Project",
-      "commandLineArgs": "--worker",
+      "commandLineArgs": "--server",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "",

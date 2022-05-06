@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.CodeDom.Compiler;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,6 +7,7 @@ namespace openencoder
     /// <summary>
     /// There are no comments for presetsConfiguration in the schema.
     /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
     public partial class presetsConfiguration : IEntityTypeConfiguration<presets>
     {
         /// <summary>
@@ -42,6 +37,7 @@ namespace openencoder
     /// <summary>
     /// There are no comments for usersConfiguration in the schema.
     /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
     public partial class usersConfiguration : IEntityTypeConfiguration<users>
     {
         /// <summary>
@@ -50,8 +46,8 @@ namespace openencoder
         public void Configure(EntityTypeBuilder<users> builder)
         {
             builder.ToTable(@"users", @"public");
-            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.username).HasColumnName(@"username").HasColumnType(@"varchar").IsRequired().ValueGeneratedNever().HasMaxLength(128);
+            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.password).HasColumnName(@"password").HasColumnType(@"varchar").IsRequired().ValueGeneratedNever().HasMaxLength(128);
             builder.Property(x => x.role).HasColumnName(@"role").HasColumnType(@"varchar").ValueGeneratedNever().HasMaxLength(64);
             builder.Property(x => x.force_password_reset).HasColumnName(@"force_password_reset").HasColumnType(@"bool").ValueGeneratedNever().HasDefaultValueSql(@"false");
@@ -71,6 +67,7 @@ namespace openencoder
     /// <summary>
     /// There are no comments for settings_optionConfiguration in the schema.
     /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
     public partial class settings_optionConfiguration : IEntityTypeConfiguration<settings_option>
     {
         /// <summary>
@@ -99,6 +96,7 @@ namespace openencoder
     /// <summary>
     /// There are no comments for settingsConfiguration in the schema.
     /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
     public partial class settingsConfiguration : IEntityTypeConfiguration<settings>
     {
         /// <summary>
@@ -107,9 +105,9 @@ namespace openencoder
         public void Configure(EntityTypeBuilder<settings> builder)
         {
             builder.ToTable(@"settings", @"public");
+            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.settings_option_id).HasColumnName(@"settings_option_id").HasColumnType(@"int4").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.value).HasColumnName(@"value").HasColumnType(@"varchar").ValueGeneratedNever().HasMaxLength(256);
-            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.encrypted).HasColumnName(@"encrypted").HasColumnType(@"bool").ValueGeneratedNever().HasDefaultValueSql(@"false");
             builder.HasKey(@"id");
 
@@ -126,6 +124,7 @@ namespace openencoder
     /// <summary>
     /// There are no comments for jobsConfiguration in the schema.
     /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
     public partial class jobsConfiguration : IEntityTypeConfiguration<jobs>
     {
         /// <summary>
@@ -134,8 +133,8 @@ namespace openencoder
         public void Configure(EntityTypeBuilder<jobs> builder)
         {
             builder.ToTable(@"jobs", @"public");
-            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.guid).HasColumnName(@"guid").HasColumnType(@"varchar").IsRequired().ValueGeneratedNever().HasMaxLength(128);
+            builder.Property(x => x.id).HasColumnName(@"id").HasColumnType(@"serial").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.preset).HasColumnName(@"preset").HasColumnType(@"varchar").IsRequired().ValueGeneratedNever().HasMaxLength(128);
             builder.Property(x => x.created_date).HasColumnName(@"created_date").HasColumnType(@"timestamp").ValueGeneratedOnAdd().HasDefaultValueSql(@"CURRENT_TIMESTAMP");
             builder.Property(x => x.status).HasColumnName(@"status").HasColumnType(@"varchar").ValueGeneratedNever().HasMaxLength(64);
@@ -156,6 +155,7 @@ namespace openencoder
     /// <summary>
     /// There are no comments for encodeConfiguration in the schema.
     /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
     public partial class encodeConfiguration : IEntityTypeConfiguration<encode>
     {
         /// <summary>
@@ -180,6 +180,34 @@ namespace openencoder
         #region Partial Methods
 
         partial void CustomizeConfiguration(EntityTypeBuilder<encode> builder);
+
+        #endregion
+    }
+
+    /// <summary>
+    /// There are no comments for queue_jobConfiguration in the schema.
+    /// </summary>
+    [GeneratedCode("Devart Entity Developer", "")]
+    public partial class queue_jobConfiguration : IEntityTypeConfiguration<queue_job>
+    {
+        /// <summary>
+        /// There are no comments for Configure(EntityTypeBuilder<queue_job> builder) method in the schema.
+        /// </summary>
+        public void Configure(EntityTypeBuilder<queue_job> builder)
+        {
+            builder.ToTable(@"queue_jobs");
+            builder.Property(x => x.guid).HasColumnName(@"guid").IsRequired().ValueGeneratedNever();
+            builder.Property(x => x.preset).HasColumnName(@"preset").IsRequired().ValueGeneratedNever();
+            builder.Property(x => x.source).HasColumnName(@"source").IsRequired().ValueGeneratedNever();
+            builder.Property(x => x.destination).HasColumnName(@"destination").IsRequired().ValueGeneratedNever();
+            builder.HasKey(@"guid");
+
+            CustomizeConfiguration(builder);
+        }
+
+        #region Partial Methods
+
+        partial void CustomizeConfiguration(EntityTypeBuilder<queue_job> builder);
 
         #endregion
     }

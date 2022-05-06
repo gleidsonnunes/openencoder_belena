@@ -18,4 +18,7 @@ RUN dotnet publish "openencoder.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ENV DbContextSettings:ConnectionString="User ID=postgres;Password=postgres;Host=gleidson-nunes.ddns.net;Port=5432;Database=openencoder;Pooling=true;"
+
 ENTRYPOINT ["dotnet", "openencoder.dll","--worker"]

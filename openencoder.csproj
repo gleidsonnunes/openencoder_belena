@@ -14,210 +14,17 @@
   <ItemGroup>
     <Content Remove="wwwroot\css\app.2ce3d26f.css" />
     <Content Remove="wwwroot\css\chunk-vendors.c6d8e0ef.css" />
-    <Content Remove="wwwroot\css\jobs.7c44befd.css" />
     <Content Remove="wwwroot\css\machines.1e3eb5a1.css" />
-    <Content Remove="wwwroot\css\presets.3890ffb2.css" />
-    <Content Remove="wwwroot\img\icons\android-icon-144x144.png" />
-    <Content Remove="wwwroot\img\icons\android-icon-192x192.png" />
-    <Content Remove="wwwroot\img\icons\android-icon-36x36.png" />
-    <Content Remove="wwwroot\img\icons\android-icon-48x48.png" />
-    <Content Remove="wwwroot\img\icons\android-icon-72x72.png" />
-    <Content Remove="wwwroot\img\icons\android-icon-96x96.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-114x114.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-120x120.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-144x144.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-152x152.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-180x180.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-57x57.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-60x60.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-72x72.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-76x76.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon-precomposed.png" />
-    <Content Remove="wwwroot\img\icons\apple-icon.png" />
-    <Content Remove="wwwroot\img\icons\favicon-16x16.png" />
-    <Content Remove="wwwroot\img\icons\favicon-32x32.png" />
-    <Content Remove="wwwroot\img\icons\favicon-96x96.png" />
-    <Content Remove="wwwroot\img\icons\favicon.ico" />
-    <Content Remove="wwwroot\img\icons\ms-icon-144x144.png" />
-    <Content Remove="wwwroot\img\icons\ms-icon-150x150.png" />
-    <Content Remove="wwwroot\img\icons\ms-icon-310x310.png" />
-    <Content Remove="wwwroot\img\icons\ms-icon-70x70.png" />
-    <Content Remove="wwwroot\img\jsoneditor-icons.2b9b4872.svg" />
-    <Content Remove="wwwroot\img\logo.png" />
-    <Content Remove="wwwroot\index.html" />
     <Content Remove="wwwroot\js\app.9c5da2dd.js" />
     <Content Remove="wwwroot\js\chunk-vendors.4b728811.js" />
     <Content Remove="wwwroot\js\encode.15ce5463.js" />
     <Content Remove="wwwroot\js\jobs.c8ae645b.js" />
-    <Content Remove="wwwroot\js\machines.93b7fee7.js" />
-    <Content Remove="wwwroot\js\machines~presets~settings.c04a9be4.js" />
     <Content Remove="wwwroot\js\presets.d32bdb64.js" />
     <Content Remove="wwwroot\js\queue.40bfb434.js" />
     <Content Remove="wwwroot\js\settings.fe7345a9.js" />
     <Content Remove="wwwroot\js\status.a1caed0e.js" />
     <Content Remove="wwwroot\js\workers.eae1317d.js" />
-    <Content Remove="wwwroot\manifest.json" />
     <Content Remove="wwwroot\precache-manifest.7e6f4211c352e3b06e909cf844d4c6f9.js" />
-    <Content Remove="wwwroot\robots.txt" />
-    <Content Remove="wwwroot\service-worker.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\css\app.2ce3d26f.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\css\chunk-vendors.c6d8e0ef.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\css\jobs.7c44befd.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\css\machines.1e3eb5a1.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\css\presets.3890ffb2.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\android-icon-144x144.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\android-icon-192x192.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\android-icon-36x36.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\android-icon-48x48.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\android-icon-72x72.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\android-icon-96x96.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-114x114.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-120x120.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-144x144.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-152x152.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-180x180.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-57x57.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-60x60.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-72x72.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-76x76.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon-precomposed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\apple-icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\favicon-16x16.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\favicon-32x32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\favicon-96x96.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\favicon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\ms-icon-144x144.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\ms-icon-150x150.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\ms-icon-310x310.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\icons\ms-icon-70x70.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\jsoneditor-icons.2b9b4872.svg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\img\logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\app.9c5da2dd.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\app.9c5da2dd.js.map" />
-    <None Include="wwwroot\js\chunk-vendors.4b728811.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\chunk-vendors.4b728811.js.map" />
-    <None Include="wwwroot\js\encode.15ce5463.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\encode.15ce5463.js.map" />
-    <None Include="wwwroot\js\jobs.c8ae645b.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\jobs.c8ae645b.js.map" />
-    <None Include="wwwroot\js\machines.93b7fee7.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\machines.93b7fee7.js.map" />
-    <None Include="wwwroot\js\machines~presets~settings.c04a9be4.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\machines~presets~settings.c04a9be4.js.map" />
-    <None Include="wwwroot\js\presets.d32bdb64.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\presets.d32bdb64.js.map" />
-    <None Include="wwwroot\js\queue.40bfb434.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\queue.40bfb434.js.map" />
-    <None Include="wwwroot\js\settings.fe7345a9.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\settings.fe7345a9.js.map" />
-    <None Include="wwwroot\js\status.a1caed0e.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\status.a1caed0e.js.map" />
-    <None Include="wwwroot\js\workers.eae1317d.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\js\workers.eae1317d.js.map" />
-    <None Include="wwwroot\manifest.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\precache-manifest.7e6f4211c352e3b06e909cf844d4c6f9.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\robots.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="wwwroot\service-worker.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -258,6 +65,138 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="web\dist\manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\app.cd024c86.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\chunk-vendors.7c724225.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\jobs.7c44befd.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\presets.3890ffb2.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\android-icon-144x144.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\android-icon-192x192.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\android-icon-36x36.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\android-icon-48x48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\android-icon-72x72.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\android-icon-96x96.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-114x114.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-120x120.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-144x144.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-152x152.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-180x180.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-57x57.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-60x60.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-72x72.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-76x76.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon-precomposed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\apple-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\favicon-16x16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\favicon-32x32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\favicon-96x96.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\ms-icon-144x144.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\ms-icon-150x150.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\ms-icon-310x310.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\icons\ms-icon-70x70.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\jsoneditor-icons.2b9b4872.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\app.f29a60bd.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\chunk-vendors.e0a38a2d.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\encode.89e6a21c.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\jobs.eb8ed273.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\presets.09ea3673.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\presets~settings.e6fbe739.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\settings.7e21c2a4.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\js\status.9bf7a0bc.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\manifest.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\precache-manifest.3729d1d1ab1b6f90fc1bc3df27695632.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\robots.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\service-worker.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

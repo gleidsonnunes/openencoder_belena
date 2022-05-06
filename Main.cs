@@ -4,75 +4,73 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-namespace openencoder
+namespace openencoder;
+public class Program
 {
-    public class Program
+    public class Options
     {
-        public class Options
-        {
-            [Option('s', "server", Required = false, HelpText = "Start in server mode")]
-            public bool Server { get; set; }
+        [Option('s', "server", Required = false, HelpText = "Start in server mode")]
+        public bool Server { get; set; }
 
-            [Option('w', "worker", Required = false, HelpText = "Start in worker mode")]
-            public bool Worker { get; set; }
-        }
+        [Option('w', "worker", Required = false, HelpText = "Start in worker mode")]
+        public bool Worker { get; set; }
+    }
 
-        private static void Main(string[] args)
-        {
-            Environment.SetEnvironmentVariable("ASPNETCORE_URLS", string.Empty);
-            Console.Title = "Openencoder - Open Source Cloud Encoder";
-            Parser.Default.ParseArguments<Options>(args)
-                   .WithParsed(o =>
+    private static void Main(string[] args)
+    {
+        Environment.SetEnvironmentVariable("ASPNETCORE_URLS", string.Empty);
+        Console.Title = "Openencoder - Open Source Cloud Encoder";
+        Parser.Default.ParseArguments<Options>(args)
+               .WithParsed(o =>
+               {
+                   if (o.Server)
                    {
-                       if (o.Server)
+                       Console.WriteLine("Starting server...");
+                       Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
+                       _ = new Server(args);
+                   }
+                   else if (o.Worker)
+                   {
+                       Console.WriteLine("Starting worker...");
+                       Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
+                       IHost host = Host.CreateDefaultBuilder(args).Build();
+                       JobManager.Initialize();
+                       IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
+                       OpenEncoderModel model = new();
+                       IModel channel = new ConnectionFactory { Uri = new Uri(config.GetValue<string>("RMQConnectionString")) }.CreateConnection().CreateModel();
+                       JobManager.AddJob(
+                       () =>
                        {
-                           Console.WriteLine("Starting server...");
-                           Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
-                           _ = new Server(args);
-                       }
-                       else if (o.Worker)
-                       {
-                           Console.WriteLine("Starting worker...");
-                           Console.WriteLine($"Running with {Environment.ProcessorCount} CPUs");
-                           IHost host = Host.CreateDefaultBuilder(args).Build();
-                           JobManager.Initialize();
-                           IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables().Build();
-                           OpenEncoderModel model = new();
-                           IModel channel = new ConnectionFactory { Uri = new Uri(config.GetValue<string>("RMQConnectionString")) }.CreateConnection().CreateModel();
-                           JobManager.AddJob(
-                           () =>
+                           try
                            {
-                               try
-                               {
 
-                                   List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
-                                   jobs.ForEach(a =>
-                                   {
-                                       IBasicProperties props = channel.CreateBasicProperties();
-                                       props.Headers = new Dictionary<string, object>
-                                       {
-                                                   { "x-deduplication-header", true }
-                                       };
-                                       channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
-                                   });
-                                   EventingBasicConsumer? consumer = new(channel);
-                                   consumer.Received += (model, ea) =>
-                                   {
-                                       byte[]? body = ea.Body.ToArray();
-                                       string? message = Encoding.UTF8.GetString(body);
-                                       Console.WriteLine(message);
-                                   };
-                                   channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
-                               }
-                               catch (Exception ex)
+                               List<jobs> jobs = model.jobs.Where(a => (new string[] { "queued", "restarting" }).Contains(a.status)).ToList();
+                               jobs.ForEach(a =>
                                {
-                                   Console.WriteLine(ex);
-                               }
-                           },
-                           s => s.ToRunNow().AndEvery(5).Seconds());
-                           host.Run();
-                       }
-                   });
-        }
+                                   IBasicProperties props = channel.CreateBasicProperties();
+                                   props.Headers = new Dictionary<string, object>
+                                   {
+                                                   { "x-deduplication-header", true }
+                                   };
+                                   channel.BasicPublish(exchange: "", routingKey: "queue", basicProperties: props, body: Encoding.UTF8.GetBytes(Convert.ToBase64String(Encoding.UTF8.GetBytes($"{{\"guid\": \"{a.guid}\", \"preset\": \"{a.preset}\", \"source\": \"{a.source}\", \"destination\": \"{a.destination}\"}}"))));
+                               });
+                               EventingBasicConsumer? consumer = new(channel);
+                               consumer.Received += (model, ea) =>
+                               {
+                                   byte[]? body = ea.Body.ToArray();
+                                   string? message = Encoding.UTF8.GetString(body);
+                                   Console.WriteLine(message);
+                               };
+                               channel.BasicConsume(queue: "downstream", autoAck: true, consumer: consumer);
+                           }
+                           catch (Exception ex)
+                           {
+                               Console.WriteLine(ex);
+                           }
+                       },
+                       s => s.ToRunNow().AndEvery(5).Seconds());
+                       host.Run();
+                   }
+               });
     }
 }
