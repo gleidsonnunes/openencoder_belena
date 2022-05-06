@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "openencoder", "openencoder.csproj", "{92998F8B-045B-4BFD-8BE8-4C9845B8A4D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenEncoderGUI", "OpenEncoderGUI\OpenEncoderGUI.csproj", "{540A16B8-F7F7-4187-BB2E-96284A8678F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{92998F8B-045B-4BFD-8BE8-4C9845B8A4D2} = {92998F8B-045B-4BFD-8BE8-4C9845B8A4D2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

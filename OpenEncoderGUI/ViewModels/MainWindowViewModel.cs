@@ -45,7 +45,7 @@ namespace OpenEncoder.ViewModels
                     try
                     {
                         BalenaCloud? balena = JsonSerializer.Deserialize<BalenaCloud>(Url.Parse("https://api.balena-cloud.com/v6/device?$select=device_name,uuid").WithOAuthBearerToken("jiHlgqMWAoirXppSThDAO7rD6Ungg2XA").GetStringAsync().Result);
-                        HeartBeat? h = JsonSerializer.Deserialize<HeartBeat>(Url.Parse($"https://{balena?.d.First(l => l.device_name == "OpenEncoder").uuid}.balena-devices.com/api/HeartBeat").GetStringAsync().Result);
+                        HeartBeat? h = JsonSerializer.Deserialize<HeartBeat>(Url.Parse($"https://{balena?.d?.First(l => l.device_name == "OpenEncoder").uuid}.balena-devices.com/api/HeartBeat").GetStringAsync().Result);
 
                         if (!(h?.db == "OK"))
                         {
