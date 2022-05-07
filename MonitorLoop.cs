@@ -41,9 +41,10 @@ public class MonitorLoop
 
     private async void MonitorAsync(OpenEncoderModel model, IModel channel)
     {
-        JobManager.AddJob(async () => await _taskQueue.QueueBackgroundWorkItemAsync((token) => BuildWorkItem(token, model, channel)), s => s.ToRunNow().AndEvery(5).Seconds());
+        JobManager.AddJob(async () => await _taskQueue.QueueBackgroundWorkItemAsync((token) => BuildWorkItem(model, channel, token)), s => s.ToRunNow().AndEvery(5).Seconds());
         while (true)
         {
+            await Task.Delay(5000);
             if (_cancellationToken.IsCancellationRequested)
             {
                 JobManager.RemoveAllJobs();
@@ -54,7 +55,7 @@ public class MonitorLoop
         await Task.FromCanceled(_cancellationToken);
     }
 
-    private ValueTask BuildWorkItem(CancellationToken token, OpenEncoderModel model, IModel channel)
+    private ValueTask BuildWorkItem(OpenEncoderModel model, IModel channel, CancellationToken token)
     {
         return new ValueTask(Task.Factory.StartNew(() =>
         {
@@ -93,7 +94,7 @@ public class MonitorLoop
                 {
                     byte[]? body = ea.Body.ToArray();
                     string? message = Encoding.UTF8.GetString(body);
-                    _logger.LogInformation(message);
+                    _logger.LogInformation(message: message);
                     string guid = Regex.Matches(message, @"([a-z0-9]{8}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{4}[-][a-z0-9]{12})").First().Value;
                     model.queue_jobs.Remove(model.queue_jobs.First(a => a.guid == guid));
                     model.SaveChanges();
